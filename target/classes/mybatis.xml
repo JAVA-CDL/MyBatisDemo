@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 控制输出日志   -->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--    环境配置：数据里的连接信息,切换默认使用的数据库-->
+
+    <typeAliases>
+        <!--    第一种方式：定义别名-->
+<!--        <typeAlias type="com.pzyruo.domain.Student" alias="stu" />-->
+<!--        <typeAlias type="com.pzyruo.vo.ViewStudent" alias="viewStu" />-->
+<!--        第二种方式：使用包命，如果包内的文件名重复会报错-->
+        <package name="com.pzyruo.domain"/>
+        <package name="com.pzyruo.vo"/>
+    </typeAliases>
+<!--    插件配置-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <!--            一个数据库信息的配置-->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/book"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+<!--    多个Mapper文件的配置-->
+    <mappers>
+<!--        第一种方法，每个Mapper文件进行配置-->
+<!--        <mapper resource="com/pzyruo/dao/StudentDao.xml"/>-->
+<!--        <mapper resource="com/pzyruo/dao/OrderDao.xml" />-->
+<!--        第二种方法：使用Mapper文件所在包的全限定名称-->
+        <package name="com.pzyruo.dao"/>
+    </mappers>
+</configuration>
